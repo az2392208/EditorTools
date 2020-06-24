@@ -1,21 +1,20 @@
-﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 public class Singleton<T> where T : new()
 {
-    private static T ms_instance;
-
+    //非monolei的单例
+    private static T _instance;
     public static T Instance
     {
         get
         {
-            if (ms_instance == null)
+            if(_instance==null)
             {
-                ms_instance = new T();
+                _instance = new T();
             }
-
-            return ms_instance;
+            return _instance;
         }
     }
 }
