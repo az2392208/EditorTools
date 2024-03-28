@@ -12,14 +12,14 @@ public class Shake : MonoBehaviour {
     //震动的时候显示的图片
     public GameObject UI;
 
+    public bool openShake = false;
 	// Use this for initialization
 	void Start () {
 		
 	}
-	
 	// Update is called once per frame
 	void Update () {
-        if (Gun.Instance.bossAttack)
+        if (openShake)
         {
             UI.SetActive(true);
             transform.position = new Vector3((Random.Range(0f, cameraShake)) - cameraShake*0.5f, transform.position.y, transform.position.z);
@@ -30,7 +30,7 @@ public class Shake : MonoBehaviour {
 
                 cameraShake= 0;
                 UI.SetActive(false);
-                Gun.Instance.bossAttack = false;
+                openShake = false;
             }
         }
         else
