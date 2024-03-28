@@ -1,0 +1,10 @@
+{
+  "name": "com.unity.unityeditor",
+  "displayName": "UnityEditorTool",
+  "version": "0.0.1",
+  "unity": "2021.1",
+  "description": "Unity编辑器工具库",
+  "keywords": [
+    "unity"
+  ]
+}
