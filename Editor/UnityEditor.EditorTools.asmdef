@@ -1,7 +1,9 @@
 {
-    "name": "HierarchyEditor",
+    "name": "UnityEditor.EditorTools",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:cdf9945127558f149aef4ecf1743d663"
+    ],
     "includePlatforms": [
         "Editor"
     ],

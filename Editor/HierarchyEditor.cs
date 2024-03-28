@@ -1,35 +1,68 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
+using System.Globalization;
 using UnityEditor;
 using UnityEngine;
 
-[InitializeOnLoad]
-static class HierarchyEditor
+namespace EditorTools
 {
-    static HierarchyEditor()
+    [InitializeOnLoad]
+    static class HierarchyEditor
     {
-        Debug.Log("°ó¶¨  HierarchyWindowMethod");
-        EditorApplication.hierarchyWindowItemOnGUI += HandleHierarchyWindowItemOnGUI;
-    }
-    static GUIStyle _style = new GUIStyle
-    {
-        //imagePosition = ImagePosition.ImageOnly,
-        //padding = new RectOffset(2, 2, 2, 2),
-        alignment = TextAnchor.MiddleRight,
-        //fixedWidth = 20,
-        //fixedHeight = 16,
-        fontSize = 20,
-    };
-
-    static void HandleHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
-    {
-        GameObject hierarchyObj = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-        if (hierarchyObj != null)
+        //("°ó¶¨  HierarchyWindowMethod");
+        static HierarchyEditor()
         {
-            _style.normal.textColor = Color.red;
-            EditorGUI.LabelField(selectionRect, "+", _style);
+            EditorApplication.hierarchyWindowItemOnGUI += HandleHierarchyWindowItemOnGUI;
+        }
+        private static GUIStyle numStyle = null;
+        const string style_name = "CN CountBadge";
+
+        static void HandleHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
+        {
+            GameObject hierarchyObj = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
+            if (hierarchyObj == null)
+                return;
+            if (numStyle == null)
+            {
+                numStyle = new GUIStyle()
+                {
+                    fixedHeight = EditorGUIUtility.singleLineHeight - 4,
+                    fontSize = 10,
+                    fontStyle = FontStyle.Bold,
+                    normal = { textColor = new Color(0, 1, 1, 0.5f) },
+                    padding = new RectOffset(1, 0, 0, 0),
+                    alignment = TextAnchor.MiddleRight
+                };
+            }
+            Camera camScript = hierarchyObj.GetComponent<Camera>();
+            if (camScript != null)
+            {
+                selectionRect.x += 225;
+                selectionRect.y += 1;
+                selectionRect.width = 25f;
+                //selectionRect.height = EditorGUIUtility.singleLineHeight - 4;
+                GUI.Button(selectionRect, EditorGUIUtility.IconContent("Camera Icon"), numStyle);
+                //EditorGUI.LabelField(selectionRect, "MCam", numStyle);
+                selectionRect.x -= EditorGUIUtility.singleLineHeight;
+                selectionRect.y -= 1;
+
+            }
+            Light lightScript = hierarchyObj.GetComponent<Light>();
+            if (lightScript != null)
+            {
+                selectionRect.x += 225;
+                selectionRect.width = 25f;
+                //EditorGUI.LabelField(selectionRect, "Light", numStyle);
+                GUI.Button(selectionRect, EditorGUIUtility.IconContent("Light Icon"), numStyle);
+                selectionRect.x -= EditorGUIUtility.singleLineHeight;
+                selectionRect.y -= 1;
+            }
         }
     }
-
+    public class TestOtherLoad
+    {
+        public void LogError(string message)
+        {
+            Debug.LogError(message);
+        }
+    }
 }
