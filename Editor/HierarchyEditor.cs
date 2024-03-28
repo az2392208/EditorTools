@@ -27,7 +27,7 @@ static class HierarchyEditor
         GameObject hierarchyObj = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
         if (hierarchyObj != null)
         {
-            _style.normal.textColor = Color.green;
+            _style.normal.textColor = Color.red;
             EditorGUI.LabelField(selectionRect, "+", _style);
         }
     }
